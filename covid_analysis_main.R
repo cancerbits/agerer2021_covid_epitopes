@@ -442,60 +442,9 @@ VlnPlot(covid.hashtag, rownames(head(allmarkertable[order(allmarkertable[sharedp
 dev.off() 
 
 
-
-###
-###VIOLIN PLOTS OF SIGNIFICANT GENES. MUT vs WT
-###
-mwcolors=brewer.pal(name="Set2", n=4)[c(2,4)]
-
-pdf("./plots/violinplots_mt_wt_mast_negativeFC.pdf",width=20, height=20 )
-allmarkertable=markersmw2
-sign="avg_log2FC"
-thresh=200
-tops=20
-allmarkertable=allmarkertable[order(allmarkertable[,sign]),]
-VlnPlot(covid.hashtag, rownames(head(allmarkertable[order(allmarkertable[,sign]),], tops)), idents= c(wtpos, mutpos), flip=T,  pt.size=0, col=mwcolors )
-dev.off() 
-
-pdf("./plots/violinplots_mt_wt_mast_positiveFCtop20.pdf",width=20, height=20 )
-allmarkertable=markersmw2
-sign="avg_log2FC"
-thresh=200
-tops=20
-allmarkertable=allmarkertable[order(allmarkertable[,sign], decreasing=T),]
-VlnPlot(covid.hashtag, rownames(head(allmarkertable[order(allmarkertable[,sign]),], tops)), idents= c(wtpos, mutpos), flip=T,  pt.size=0, col=mwcolors )
-dev.off() 
-
-
-
-###
-###VIOLIN PLOTS OF SIGNIFICANT GENES. ALL FOUR CONDITIONS
-###
-all4colors=brewer.pal(name="Set2", n=4)[c(3,1,4,2)]
-covid.hashtag@active.ident <- factor(x = covid.hashtag@active.ident, levels = c("WT YLQ-", "MUT YLQ-", "WT YLQ+", "MUT YLQ+"))
-
-pdf("./plots/violinplots_all4_mast_negativeFC_top30.pdf",width=20, height=20 )
-allmarkertable=markersmw2
-sign="avg_log2FC"
-thresh=200
-tops=30
-allmarkertable=allmarkertable[order(allmarkertable[,sign]),]
-VlnPlot(covid.hashtag, rownames(head(allmarkertable[order(allmarkertable[,sign]),], tops)),  pt.size=0, col=all4colors )+labs(ylab="expr.level \n lognorm RC")
-dev.off() 
-
-pdf("./plots/violinplots_all4_mast_positiveFCtop30.pdf",width=20, height=20 )
-allmarkertable=markersmw2
-sign="avg_log2FC"
-thresh=200
-tops=30
-allmarkertable=allmarkertable[order(allmarkertable[,sign], decreasing=T),]
-VlnPlot(covid.hashtag, rownames(head(allmarkertable[order(allmarkertable[,sign]),], tops)),  pt.size=0, col=all4colors )+labs(ylab="expr.level \n lognorm RC")
-dev.off() 
-
-
-###
+###############################
 ###DE significance thresholding
-###
+###############################
 #we make two tests: one for neg vs pos and one for mut vs wt
 ntests=2   
 
@@ -530,9 +479,9 @@ gv= ggplot(allmarkertable, aes(x= avg_log2FC, y=minuslogval))+
 gv
 mastmw=allmarkertable
 dev.off()
-
+############################################
 #####positive vs negative volcano plot, MAST
-
+############################################
 pdf("./plots/volcanoplot_pos_neg_mast.pdf", width=7, height=7)
 colhigh=Zissou1[5]
 collow=Zissou1[1]
@@ -564,15 +513,63 @@ mastpos=allmarkertable
 dev.off()
 
 
-###
+#######################
 ###exporting MAST table
-###
+#######################
 colnames(mastpos)= sapply(colnames(mastpos), function(x) paste0("pos_vs_neg_", x), USE.NAMES=F)
 colnames(mastmw)= sapply(colnames(mastmw), function(x) paste0("mut_vs_wt_" ,x ), USE.NAMES=F)
 
 
 write.table(merge(mastpos, mastmw, by="row.names", incomparables=NA), quote=FALSE, file="./pvalues_table.csv", sep=",")
 
+###############################################
+###VIOLIN PLOTS OF SIGNIFICANT GENES. MUT vs WT
+###############################################
+mwcolors=brewer.pal(name="Set2", n=4)[c(2,4)]
+
+pdf("./plots/violinplots_mt_wt_mast_negativeFC.pdf",width=20, height=20 )
+allmarkertable=markersmw2
+sign="avg_log2FC"
+thresh=200
+tops=20
+allmarkertable=allmarkertable[order(allmarkertable[,sign]),]
+VlnPlot(covid.hashtag, rownames(head(allmarkertable[order(allmarkertable[,sign]),], tops)), idents= c(wtpos, mutpos), flip=T,  pt.size=0, col=mwcolors )
+dev.off() 
+
+pdf("./plots/violinplots_mt_wt_mast_positiveFCtop20.pdf",width=20, height=20 )
+allmarkertable=markersmw2
+sign="avg_log2FC"
+thresh=200
+tops=20
+allmarkertable=allmarkertable[order(allmarkertable[,sign], decreasing=T),]
+VlnPlot(covid.hashtag, rownames(head(allmarkertable[order(allmarkertable[,sign]),], tops)), idents= c(wtpos, mutpos), flip=T,  pt.size=0, col=mwcolors )
+dev.off() 
+
+
+
+########################################################
+###VIOLIN PLOTS OF SIGNIFICANT GENES. ALL FOUR CONDITIONS
+########################################################
+all4colors=brewer.pal(name="Set2", n=4)[c(3,1,4,2)]
+covid.hashtag@active.ident <- factor(x = covid.hashtag@active.ident, levels = c("WT YLQ-", "MUT YLQ-", "WT YLQ+", "MUT YLQ+"))
+
+pdf("./plots/violinplots_all4_mast_negativeFC_top30.pdf",width=20, height=20 )
+allmarkertable=markersmw2
+sign="avg_log2FC"
+thresh=200
+tops=30
+allmarkertable=allmarkertable[order(allmarkertable[,sign]),]
+VlnPlot(covid.hashtag, rownames(head(allmarkertable[order(allmarkertable[,sign]),], tops)),  pt.size=0, col=all4colors )+labs(ylab="expr.level \n lognorm RC")
+dev.off() 
+
+pdf("./plots/violinplots_all4_mast_positiveFCtop30.pdf",width=20, height=20 )
+allmarkertable=markersmw2
+sign="avg_log2FC"
+thresh=200
+tops=30
+allmarkertable=allmarkertable[order(allmarkertable[,sign], decreasing=T),]
+VlnPlot(covid.hashtag, rownames(head(allmarkertable[order(allmarkertable[,sign]),], tops)),  pt.size=0, col=all4colors )+labs(ylab="expr.level \n lognorm RC")
+dev.off() 
 
 
 
