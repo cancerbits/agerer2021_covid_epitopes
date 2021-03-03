@@ -1,5 +1,5 @@
 #Single-cell analysis for Agerer et al, 2021
-#Author: Luis Fernando Montaño-Gutierrez
+#Author: Luis Fernando Montaño-Gutierrez, St. Anna Children's Cancer Research Insitute, Vienna, Austria.
 
 #Importing libraries
 library(Seurat)
