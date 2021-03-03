@@ -13,5 +13,5 @@ sars060- with files ready for analysis
 
 plots- to dump all figures
 
-4. Start R, make sure you have all the required packages described, and run the code chunk by chunk. 
+4. The R code is not automated. Start R, make sure you have all the required packages described, and run the code chunk by chunk. 
 
