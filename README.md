@@ -13,5 +13,8 @@ sars060- with files ready for analysis
 
 plots- to dump all figures
 
+(Note for non linux/unix environment users: the prepdirs.sh script just separates the files from each patient into individual directories, and renames each file so that they are called exactly 'features.tsv.gz',, 'barcodes.tsv.gz' and 'matrix.mtx.gz'. This is a circumstancial requirement for the R package Seurat, and can easily do this manually without the script.)
+
+
 4. The R code is not automated. Start R, make sure you have all the required packages described, and run the code chunk by chunk. 
 
